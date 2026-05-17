@@ -37,6 +37,9 @@ We also set up Docker so it's easy to run without messing up your local python e
 ```bash
 docker build -t arm-scheduler .
 docker run --rm --gpus all -v "${PWD}/experiments:/app/experiments" arm-scheduler python3 experiments/run_all.py
+
+# To run the generalist DQN training and evaluation:
+docker run --rm --gpus all -v "${PWD}/experiments:/app/experiments" arm-scheduler python3 experiments/train_generalist.py
 ```
 
 Or if you just want to run it locally, install the dependencies and run the script:

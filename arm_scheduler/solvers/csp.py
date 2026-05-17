@@ -14,16 +14,8 @@ TIME_LIMIT = 15.0   # seconds per solve call (shortened to prevent benchmark sta
 
 try:
     from ortools.sat.python import cp_model as _cp_model
-    _ORTOOLS = True
 except (ImportError, OSError):
-    _ORTOOLS = False
-
-if not _ORTOOLS:
-    try:
-        from constraint import Problem, AllDifferentConstraint  # type: ignore
-        _PYCONSTRAINT = True
-    except ImportError:
-        _PYCONSTRAINT = False
+    raise ImportError("Google OR-Tools is required for the CSPScheduler. Please install it using: pip install ortools")
 else:
     _PYCONSTRAINT = False
 
@@ -33,10 +25,6 @@ class CSPScheduler:
     def __init__(self, k: int = 3, time_limit: float = TIME_LIMIT) -> None:
         self.k = k
         self.time_limit = time_limit
-        if not _ORTOOLS and not _PYCONSTRAINT:
-            raise RuntimeError(
-                "No CSP backend found. Install OR-Tools:  pip install ortools"
-            )
 
     
     # Public API
@@ -49,12 +37,8 @@ class CSPScheduler:
         state = PipelineState(instructions, self.k)
         n = len(instructions)
 
-        if _ORTOOLS:
-            schedule_out, makespan, extra = self._solve_ortools(instructions, state, t0)
-            backend = "ortools_cpsat"
-        else:
-            schedule_out, makespan, extra = self._solve_pyconstraint(instructions, state, t0)
-            backend = "python_constraint"
+        schedule_out, makespan, extra = self._solve_ortools(instructions, state, t0)
+        backend = "ortools_cpsat"
 
         wall_time = time.perf_counter() - t0
         nops = sum(1 for _, i in schedule_out if i is None)
@@ -157,63 +141,6 @@ class CSPScheduler:
 
 
 
-    
-    # python-constraint backend (slow fallback, small n only)
-
-    def _solve_pyconstraint(
-        self,
-        instructions: List[Instruction],
-        state: PipelineState,
-        t0: float,
-    ) -> Tuple[List, int, Dict]:
-        from constraint import Problem, AllDifferentConstraint  # type: ignore
-
-        n = len(instructions)
-        best = None
-        t_max = n
-
-        while time.perf_counter() - t0 < self.time_limit:
-            solution = self._pyconstraint_for_tmax(instructions, state, t_max)
-            if solution is not None:
-                makespan = max(
-                    solution[instr.idx] + instr.latency for instr in instructions
-                )
-                best = (solution, makespan)
-                break
-            t_max += 1
-            if t_max > n * 5:
-                break
-
-        if best is None:
-            sched, total = self._greedy_fallback(state, instructions)
-            return sched, total, {"optimal": False}
-
-        solution, makespan = best
-        schedule_out = self._assignment_to_schedule(solution, instructions, makespan)
-        return schedule_out, makespan, {"optimal": True}
-
-    def _pyconstraint_for_tmax(self, instructions, state, t_max):
-        from constraint import Problem, AllDifferentConstraint  # type: ignore
-        n = len(instructions)
-        problem = Problem()
-        domain = list(range(t_max))
-        for instr in instructions:
-            problem.addVariable(instr.idx, domain)
-        problem.addConstraint(AllDifferentConstraint())
-        k = self.k
-        for j, preds in state.predecessors.items():
-            for i in preds:
-                lat = instructions[i].latency
-                def raw_c(ti, tj, _lat=lat): return tj >= ti + _lat
-                problem.addConstraint(raw_c, (instructions[i].idx, instructions[j].idx))
-        share_instrs = [i for i in instructions if i.share_type != ShareType.NEUTRAL]
-        for a in range(len(share_instrs)):
-            ia = share_instrs[a]
-            for ib in share_instrs[a + 1:]:
-                if ia.share_type != ib.share_type:
-                    def sec_c(ta, tb, _k=k): return abs(ta - tb) >= _k
-                    problem.addConstraint(sec_c, (ia.idx, ib.idx))
-        return problem.getSolution()
 
     
     # Shared helpers
