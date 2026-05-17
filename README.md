@@ -1,14 +1,14 @@
 # ARM32 Instruction Scheduling Project
 
-Hi! Welcome to our project for the INFO-H410 course (Artificial Intelligence at ULB).
+Welcome to our project for the INFO-H410 course (Artificial Intelligence at ULB).
 
-For this project, we tried to solve a really interesting problem: how do we schedule ARM32 instructions for masked cryptography without leaking secrets through side channels? 
+For this project, we tried to solve an interesting problem: how do we schedule ARM32 instructions for masked cryptography without leaking secrets through side channels? 
 
 We basically had to write a tool that reorders instructions so that we don't accidentally put two different shares too close to each other in the processor pipeline (which would cause a Hamming-distance leakage).
 
 ## What we did
 
-We decided to try out three completely different approaches to see what works best:
+As specified by the instructions of the project, we tested different approaches to see what works best:
 
 1. **Bayesian Network**: We built a probabilistic model that calculates the risk of a leakage happening based on the distance between instructions. If the cumulative risk is too high, we throw in a NOP.
 2. **CSP with OR-Tools**: We wanted to see what the mathematically perfect schedule looks like, so we modeled the whole thing as a constraint satisfaction problem. It guarantees a strict distance `k` between shares.
