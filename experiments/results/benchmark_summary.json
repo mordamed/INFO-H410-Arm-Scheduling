@@ -1,0 +1,98 @@
+{
+  "bayesian": {
+    "10": {
+      "total_cycles_mean": 12.0,
+      "total_cycles_std": 0.0,
+      "n_nops_mean": 2.0,
+      "wall_time_mean": 0.00026497399812793333,
+      "train_time_mean": 0.0,
+      "n_violations_mean": 0.0,
+      "expected_leak_mean": 0.10000000000000002,
+      "valid_rate": 1.0
+    },
+    "30": {
+      "total_cycles_mean": 32.333333333333336,
+      "total_cycles_std": 1.5275252316519465,
+      "n_nops_mean": 2.3333333333333335,
+      "wall_time_mean": 0.0012859246683849664,
+      "train_time_mean": 0.0,
+      "n_violations_mean": 0.0,
+      "expected_leak_mean": 0.13333333333333333,
+      "valid_rate": 1.0
+    },
+    "50": {
+      "total_cycles_mean": 55.666666666666664,
+      "total_cycles_std": 2.8867513459481287,
+      "n_nops_mean": 5.666666666666667,
+      "wall_time_mean": 0.004117856668017267,
+      "train_time_mean": 0.0,
+      "n_violations_mean": 0.0,
+      "expected_leak_mean": 0.3,
+      "valid_rate": 1.0
+    }
+  },
+  "csp": {
+    "10": {
+      "total_cycles_mean": 11.0,
+      "total_cycles_std": 1.0,
+      "n_nops_mean": 1.0,
+      "wall_time_mean": 0.021078004666681666,
+      "train_time_mean": 0.0,
+      "n_violations_mean": 0.0,
+      "expected_leak_mean": 0.10000000000000002,
+      "valid_rate": 1.0
+    },
+    "30": {
+      "total_cycles_mean": 30.0,
+      "total_cycles_std": 0.0,
+      "n_nops_mean": 0.0,
+      "wall_time_mean": 15.019486005335542,
+      "train_time_mean": 0.0,
+      "n_violations_mean": 0.0,
+      "expected_leak_mean": 0.26666666666666666,
+      "valid_rate": 1.0
+    },
+    "50": {
+      "total_cycles_mean": 50.666666666666664,
+      "total_cycles_std": 1.1547005383792517,
+      "n_nops_mean": 0.6666666666666666,
+      "wall_time_mean": 15.022551929333227,
+      "train_time_mean": 0.0,
+      "n_violations_mean": 0.0,
+      "expected_leak_mean": 0.43333333333333335,
+      "valid_rate": 1.0
+    }
+  },
+  "mdp": {
+    "10": {
+      "total_cycles_mean": 11.666666666666666,
+      "total_cycles_std": 0.5773502691896257,
+      "n_nops_mean": 1.6666666666666667,
+      "wall_time_mean": 0.008643170333622599,
+      "train_time_mean": 3154.3241249696657,
+      "n_violations_mean": 0.0,
+      "expected_leak_mean": 0.13333333333333333,
+      "valid_rate": 1.0
+    },
+    "30": {
+      "total_cycles_mean": 32.666666666666664,
+      "total_cycles_std": 1.1547005383792517,
+      "n_nops_mean": 2.6666666666666665,
+      "wall_time_mean": 0.05353906300054703,
+      "train_time_mean": 7578.171061925331,
+      "n_violations_mean": 0.0,
+      "expected_leak_mean": 0.4000000000000001,
+      "valid_rate": 1.0
+    },
+    "50": {
+      "total_cycles_mean": 55.0,
+      "total_cycles_std": 0.816496580927726,
+      "n_nops_mean": 5.0,
+      "wall_time_mean": 0.06053902349958658,
+      "train_time_mean": 9302.72623052225,
+      "n_violations_mean": 0.0,
+      "expected_leak_mean": 0.475,
+      "valid_rate": 1.0
+    }
+  }
+}

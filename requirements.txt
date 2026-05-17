@@ -1,0 +1,7 @@
+python-constraint>=1.4.0
+ortools>=9.7
+numpy>=1.24
+matplotlib>=3.7
+pandas>=2.0
+tqdm>=4.65
+torch>=2.0

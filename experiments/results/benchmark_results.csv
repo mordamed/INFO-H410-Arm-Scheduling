@@ -1,0 +1,4 @@
+method,n_instructions,seed,total_cycles,n_nops,n_violations,expected_leakage,wall_time,train_time,optimal,valid,backend
+bayesian,10,42,12,2,0,0.1,0.00010720011778175831,0.0,False,True,bayesian
+csp,10,42,11,1,0,0.1,0.09929160005412996,0.0,True,True,ortools_cpsat
+mdp,10,42,10,0,1,0.7,0.012152299983426929,109.20239260001108,False,False,DQN (cuda)

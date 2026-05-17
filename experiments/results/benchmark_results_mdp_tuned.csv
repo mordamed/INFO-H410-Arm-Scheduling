@@ -1,0 +1,5 @@
+method,n_instructions,seed,violation_penalty,total_cycles,n_nops,n_violations,expected_leakage,wall_time,train_time,valid,backend
+mdp_tuned,10,42,-100.0,11,1,0,0.1,0.0013180999958422035,3.670065300015267,True,DQN (cpu)
+mdp_tuned,10,42,-100.0,12,2,0,0.1,0.0021210999984759837,538.9991067999799,True,DQN (cpu)
+mdp_tuned,10,43,-100.0,12,2,0,0.1,0.003287000028649345,597.5015657000185,True,DQN (cpu)
+mdp_tuned,10,44,-100.0,12,2,0,0.1,0.0031691000040154904,763.3603494999988,True,DQN (cpu)

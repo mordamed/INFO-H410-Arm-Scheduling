@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.class
+env/
+venv/
+.venv/
+.venv_gpu*/
+.env
+*.egg-info/
+build/
+dist/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# Project Specific
+experiments/checkpoints/
+experiments/tmp_*/
+*.log
+
+# LaTeX build artifacts
+report/*.aux
+report/*.bbl
+report/*.blg
+report/*.fdb_latexmk
+report/*.fls
+report/*.log
+report/*.synctex.gz
+report/*.out
+report/*.toc
+report/Untitled-*.txt
+
+# OS Specific
+.DS_Store
+Thumbs.db
