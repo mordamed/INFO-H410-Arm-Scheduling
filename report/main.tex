@@ -476,26 +476,7 @@ robust to real pipeline timing variations.
 
 \subsection{Impact of Security Distance $k$}
 
-A larger $k$ forces longer gaps between share-$A$ and share-$B$
-instructions, artificially increasing the makespan.  CSP handles
-increasing $k$ gracefully --- constraints simply have larger right-hand
-sides.  The Bayesian greedy solver is also insensitive to $k$ as a hard
-parameter: it continues to inject NOPs whenever the expected leakage
-exceeds $\tau$, so its per-step cost is unchanged (only the total NOP
-count grows).  For the MDP, a larger $k$ should be handled by adapting the
-reward function accordingly. We believe that combining
-penalty normalisation by $n$ with a violation penalty
-proportional to $k$ (i.e.\ $P \propto k$) would allow the
-DQN to remain robust in high-security regimes: larger $k$
-forces more NOP insertions, increasing the cumulative cycle
-cost, and a scaled penalty would preserve the relative
-cost-benefit balance that drives valid schedule generation.
-Due to time constraints and the significant training
-cost, we focused our generalist training on $k=3$. This choice also
-aligns with our CPT model, which assigns $P(L=1) = 0.00$ for
-$\Delta t \geq 4$ cycles --- suggesting that $k=3$ provides
-sufficient temporal separation under our leakage assumptions,
-while $k=50$ constitutes an extreme stress-test.
+A larger $k$ artificially increases the makespan by forcing longer gaps between shares. CSP and Bayesian solvers handle this gracefully without performance degradation, as constraints simply scale or trigger more NOPs. For DQN, a larger $k$ requires adapting the reward function (e.g., $P \propto k$) to balance the heavier cycle penalties. Due to training costs and our CPT model assumption ($P(L=1)=0$ for $\Delta t \ge 4$), we focused generalist training on $k=3$, leaving $k=50$ as an extreme stress-test.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\columnwidth]{../experiments/results/fig_comparison_all_correct.png}

@@ -16,8 +16,7 @@ try:
     from ortools.sat.python import cp_model as _cp_model
 except (ImportError, OSError):
     raise ImportError("Google OR-Tools is required for the CSPScheduler. Please install it using: pip install ortools")
-else:
-    _PYCONSTRAINT = False
+
 
 
 class CSPScheduler:
@@ -67,7 +66,7 @@ class CSPScheduler:
         n = len(instructions)
 
         # Warm-start: greedy gives a tight upper bound 
-        greedy_sched, greedy_total = self._greedy_fallback(state, instructions)
+        greedy_sched, greedy_total = self._greedy_warm_start(state, instructions)
         # Any optimal solution fits within [0, greedy_total)
         t_max = greedy_total
 
@@ -155,7 +154,7 @@ class CSPScheduler:
         cycle_to_instr = {cycle: instr_map[idx] for idx, cycle in assignment.items()}
         return [(c, cycle_to_instr.get(c, None)) for c in range(makespan)]
 
-    def _greedy_fallback(
+    def _greedy_warm_start(
         self,
         state: PipelineState,
         instructions: List[Instruction],
